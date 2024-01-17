@@ -1,0 +1,11 @@
+{
+  "name": "Arte Journal translator extension",
+  "version": "1.0",
+  "description": "Arte Journal translator extension",
+  "manifest_version": 2,
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["webRequest", "<all_urls>"],
+  "browser_action": {}
+}
