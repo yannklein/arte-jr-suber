@@ -4,6 +4,7 @@ from flask import Flask, request, send_from_directory
 
 from modules.stream_to_video import stream_to_video
 from modules.audio_to_text import audio_to_text
+from modules.text_translation import text_translation
 
 
 app = Flask(__name__)
@@ -20,20 +21,25 @@ def process_video():
     # original_urls = stream_to_video(stream_url)
     
     # Step2: get video transcript
+    # transcript = audio_to_text(original_urls[1])
+    
     original_urls = [
         "http://127.0.0.1:5000/videos/original.mp4",
         "http://127.0.0.1:5000/videos/original.mp3"
     ]
     stream_url = "https://manifest.arte.tv/api/manifest/v1/Generate/240117202245/fr/XQ/117014-013-A.m3u8"
+    transcript = "http://127.0.0.1:5000/videos/transcript.json"
     
-    transcript = audio_to_text(original_urls[1])
+    # Step3: translate transcript
+    translation = text_translation(transcript, 'en')
     
-    outupt = {
+    output = {
         'original_vid_url': original_urls,
         'stream_url': stream_url,
-        'transcript': transcript
+        'transcript': transcript,
+        'translation': translation,
     }
-    return json.dumps(outupt)
+    return json.dumps(output)
 
 # route exposing created videos
 @app.route('/videos/<path:path>')

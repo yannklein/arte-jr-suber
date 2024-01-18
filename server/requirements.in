@@ -3,3 +3,4 @@ psycopg2-binary
 Flask-SQLAlchemy
 ffmpeg-python
 openai-whisper
+google-cloud-translate
