@@ -4,3 +4,5 @@ Flask-SQLAlchemy
 ffmpeg-python
 openai-whisper
 google-cloud-translate
+python-dotenv
+moviepy
