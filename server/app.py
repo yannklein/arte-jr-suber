@@ -1,10 +1,25 @@
-from flask import Flask
+from flask import Flask, request, send_from_directory
+import json
+
+from modules.stream_to_video import stream_to_video
+
 
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
-    return 'Hello World'
+def process_video():
+    # get video from stream url
+    stream_url = request.args.get("url")
+    original_vid_url = stream_to_video(stream_url)
+    
+    return json.dumps({
+        'original_vid_url': f'http://127.0.0.1:5000/{original_vid_url}',
+        'stream_url': stream_url
+    })
+
+@app.route('/videos/<path:path>')
+def send_report(path):
+    return send_from_directory('videos', path)
 
 if __name__ == '__main__':
 

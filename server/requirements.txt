@@ -8,12 +8,16 @@ blinker==1.7.0
     # via flask
 click==8.1.7
     # via flask
+ffmpeg-python==0.2.0
+    # via -r requirements.in
 flask==3.0.0
     # via
     #   -r requirements.in
     #   flask-sqlalchemy
 flask-sqlalchemy==3.1.1
     # via -r requirements.in
+future==0.18.3
+    # via ffmpeg-python
 greenlet==3.0.3
     # via sqlalchemy
 itsdangerous==2.1.2
