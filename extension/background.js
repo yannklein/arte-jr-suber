@@ -2,16 +2,17 @@ const isProdMode = 'update_url' in chrome.runtime.getManifest()
 const BACKEND_URL =  isProdMode ? 'TO BE DEFINED' : 'http://127.0.0.1:5000';
 
 
-function logURL(requestDetails) {
-  if (!caught_file && requestDetails.url.includes(".m3u8")) {
-    const videoUrl = requestDetails.url;
-    console.log(videoUrl, BACKEND_URL);
+async function logURL(requestDetails) {
+  const reqUrl = requestDetails.url;
+  if (reqUrl.includes(".m3u8")) {
+    // stop logging http responses when the first is caught
     chrome.webRequest.onBeforeRequest.removeListener(logURL);
+    // send the url to the backend
+    const file_url = await fetch(`${BACKEND_URL}?url=${reqUrl}`);
+    // display url of translated video
+    console.log(file_url);
   }
 }
-
-// initialize catch variable to "not caught yet"
-let caught_file = false;
 
 // listen to all http responses
 chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
