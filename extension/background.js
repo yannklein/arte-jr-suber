@@ -8,7 +8,8 @@ async function logURL(requestDetails) {
     // stop logging http responses when the first is caught
     chrome.webRequest.onBeforeRequest.removeListener(logURL);
     // send the url to the backend
-    const file_url = await fetch(`${BACKEND_URL}?url=${reqUrl}`);
+    const response = await fetch(`${BACKEND_URL}?url=${reqUrl}`);
+    const file_url = await response.json();
     // display url of translated video
     console.log(file_url);
   }
