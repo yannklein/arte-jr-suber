@@ -6,9 +6,10 @@ from modules.stream_to_video import stream_to_video
 
 app = Flask(__name__)
 
+# main route to perform video full process
 @app.route('/')
 def process_video():
-    # get video from stream url
+    # Step1: get video from stream url
     stream_url = request.args.get("url")
     original_vid_url = stream_to_video(stream_url)
     
@@ -17,6 +18,7 @@ def process_video():
         'stream_url': stream_url
     })
 
+# route exposing created videos
 @app.route('/videos/<path:path>')
 def send_report(path):
     return send_from_directory('videos', path)
