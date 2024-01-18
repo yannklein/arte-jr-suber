@@ -36,20 +36,21 @@ def text_translation(transcript_url, target_lang):
 def generate_segmented_text(json_file):
     segmented_text = ""
     for segment in json_file["segments"]:
-        segmented_text += f'[[{segment["start"]}][{segment["end"]}]]{segment["text"]}'
+        segmented_text += f'<span translate="no">{segment["start"]}-{segment["end"]}</span>{segment["text"]}'
     return segmented_text
 
 def unpack_segmented_text(segmented_text):
     print(segmented_text)
     translation = []
-    for seg in segmented_text.split('[['):
+    for seg in segmented_text.split('<span translate="no">'):
+        print(seg)
         if seg == '':
             continue
-        time, text = seg.split(']]')
-        start, end = time.split('][')
+        time, text = seg.split('</span>')
+        start, end = time.split('-')
         translation.append({
-            'start': start,
-            'end': end,
+            'start': float(start),
+            'end': float(end),
             'text': text
         })
     return translation
