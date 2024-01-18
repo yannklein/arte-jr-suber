@@ -20,4 +20,4 @@ def audio_to_text(input_audio):
     with open(transcript_file, 'w') as f:
         f.write(json_object)
     
-    return result
+    return transcript_file
