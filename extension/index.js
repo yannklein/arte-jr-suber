@@ -10,7 +10,7 @@ async function logURL(requestDetails) {
     //display found videos
     const formVideoContainer = document.querySelector(".form-videos");
     const button = `
-      <input type="radio" class="btn-check" name="videos" id="video1" autocomplete="off">
+      <input type="radio" class="btn-check" name="${reqUrl}" id="video1" autocomplete="off">
       <label class="btn btn-outline-danger" for="video1">Arte Journal</label>
     `;
     formVideoContainer.innerHTML = "";
@@ -27,9 +27,12 @@ chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
  const enableFormSubmit = () => {
   const form = document.querySelector(".subbing-form");
   form.addEventListener("submit", async (event) => {
-    console.log(form);
+    event.preventDefault();
+    const reqUrl = form.elements[0].name;
+    const reqLang = form.elements[1].value;
     // send the url to the backend
-    const response = await fetch(`${BACKEND_URL}?url=${reqUrl}`);
+    const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
+    const response = await fetch(url);
     const file_url = await response.json();
     // display url of translated video
     console.log(file_url);
