@@ -28,6 +28,16 @@ chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
   const form = document.querySelector(".subbing-form");
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    const submitButton = document.querySelector(".subbing-button");
+    submitButton.disabled = true;
+    submitButton.innerHTML = `
+    <div class="d-flex flex-column align-items-center mt-2">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p>Generating subtitles...</p>
+    </div>
+    `;
     const reqUrl = form.elements[0].name;
     const reqLang = form.elements[1].value;
     // send the url to the backend
