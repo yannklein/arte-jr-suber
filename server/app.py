@@ -39,7 +39,8 @@ def process_video():
     # transcript = "videos/transcript.json"
     
     # Step3: translate transcript
-    translations = text_translation(f'http://127.0.0.1:5000/{transcript}', 'en')
+    lang = request.args.get("lang")
+    translations = text_translation(f'http://127.0.0.1:5000/{transcript}', lang)
     duration['text_translation'] = time.time()
     # translations = ["videos/translation.json", "videos/translation.srt"]
     
