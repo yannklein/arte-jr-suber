@@ -43,8 +43,11 @@ chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
     // send the url to the backend
     const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
     const response = await fetch(url);
-    const file_url = await response.json();
+    const file_urls = await response.json();
     // display url of translated video
     console.log(file_url);
+    form.insertAdjacentHTML("afterend", `
+      <a href="${file_urls['final_video']}" className="btn btn-danger mb-3">Download the subbed videos</a>
+    `)
   })
 }
