@@ -42,8 +42,8 @@ chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
     const reqLang = form.elements[1].value;
     // send the url to the backend
     const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
-    const response = await fetch(url);
-    const file_urls = await response.json();
+    // const response = await fetch(url);
+    // const file_urls = await response.json();
     // display url of translated video
     console.log(file_url);
     form.insertAdjacentHTML("afterend", `
