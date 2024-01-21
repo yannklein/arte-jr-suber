@@ -1,7 +1,7 @@
 {
   "original_vid_url": [
-    "http://127.0.0.1:5000/videos/original.mp4",
-    "http://127.0.0.1:5000/videos/original.mp3"
+    "http://127.0.0.1:8000/videos/original.mp4",
+    "http://127.0.0.1:8000/videos/original.mp3"
   ],
   "stream_url": "https://manifest.arte.tv/api/manifest/v1/Generate/240118201903/fr/XQ/117014-014-A.m3u8",
   "transcript": "videos/transcript.json",

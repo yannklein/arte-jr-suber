@@ -27,8 +27,20 @@
         </select>
         <div class="d-grid mb-3">
           <button type="submit" class="btn btn-danger subbing-button">Sub it!</button>
+          <button class="btn btn-danger d-none in-progress disabled">
+            <div class="d-flex flex-column align-items-center mt-2">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              <p>Generating subtitles, <span class="subbing-time">some</span> min remaining...</p>
+            </div>
+          </button>
         </div>
       </form>
+      <div class="d-grid d-none">
+        <button class="btn download-button btn-danger mb-1">📼 Download the subbed videos</button>
+        <button class="reset btn btn-outline-danger btn-sm mb-3">Back</button>
+      </div>
     </div>
 
     <script src="./index.js"></script>

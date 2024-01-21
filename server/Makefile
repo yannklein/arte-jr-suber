@@ -26,7 +26,7 @@ run:
 	FLASK_APP=app.py flask run
 
 run-dev:
-	FLASK_APP=app.py FLASK_ENV=development flask run
+	FLASK_APP=app.py FLASK_ENV=development flask run -p 8000
 
 start-dev:
 	docker-compose up --build flask_app

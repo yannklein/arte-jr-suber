@@ -9,6 +9,6 @@ def stream_to_video(stream_url):
     out_video = ffmpeg.output(in_video, original_vid_url, vcodec="copy", acodec="copy")
     out_video.run()
     return [
-        f'http://127.0.0.1:5000/{original_vid_url}', 
-        f'http://127.0.0.1:5000/{original_aud_url}'
+        f'http://127.0.0.1:8000/{original_vid_url}', 
+        f'http://127.0.0.1:8000/{original_aud_url}'
     ]
