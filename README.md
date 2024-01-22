@@ -12,11 +12,11 @@
     A Chrome extension that gets a website video stream and subtitles it in any language. 
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="#demo">Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
+    <a href="https://github.com/yannklein/arte-jr-suber/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/yannklein/arte-jr-suber/issues">Request Feature</a>
   </p>
 </div>
 
