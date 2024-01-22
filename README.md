@@ -76,6 +76,8 @@ The whole process take around 40min for a 20min video.
 * [![Flask][Flask]][Flask-url]
 * [![ffmpeg][ffmpeg]][ffmpeg-url]
 * [![chrome][chrome]][chrome-url]
+* [![googletranslate][googletranslate]][googletranslate-url]
+* [![openai][openai]][openai-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -212,3 +214,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [chrome-url]: https://chromewebstore.google.com
 [Flask]: https://img.shields.io/badge/flask-black?style=for-the-badge&logo=flask&logoColor=white
 [Flask-url]: https://flask.palletsprojects.com/en/3.0.x/
+[googletranslate]: https://img.shields.io/badge/googletranslate-4285F4?style=for-the-badge&logo=googletranslate&logoColor=white
+[googletranslate-url]: https://cloud.google.com/translate
+[openai]: https://img.shields.io/badge/WhisperAI-4285F4?style=for-the-badge&logo=openai&logoColor=white
+[openai-url]: https://openai.com/research/whisper
