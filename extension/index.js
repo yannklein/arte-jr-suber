@@ -7,7 +7,8 @@ const submitButton = document.querySelector(".subbing-button");
 const inProgress = document.querySelector(".in-progress");
 const timeSpan = document.querySelector(".subbing-time");
 const downloadBtn = document.querySelector(".download-button");
-const reset = document.querySelector(".reset");
+const resets = document.querySelectorAll(".reset");
+const error = document.querySelector(".error");
 
 async function logURL(requestDetails) {
   const reqUrl = requestDetails.url;
@@ -40,24 +41,34 @@ const updateTime = (inForty) => {
 }
 
 const updateDisplay = (status) => {
+
+  // hide all
+  submitButton.classList.add("d-none");
+  form.classList.add("d-none");
+  inProgress.classList.add("d-none");
+  error.classList.add("d-none");
+  downloadBtn.parentElement.classList.add("d-none");
+
   switch (status) {
     case "inProgress":
       localStorage.setItem("status", 'inProgress');
-      submitButton.classList.add("d-none");
+      form.classList.remove("d-none");
       inProgress.classList.remove("d-none");
       break;
     case "finished":
       localStorage.setItem("status", 'finished');
-      form.classList.add("d-none");
-      inProgress.classList.add("d-none");
       downloadBtn.parentElement.classList.remove("d-none");
+      break;
+
+    case "error":
+      localStorage.setItem("status", 'error');
+      error.classList.remove("d-none");
       break;
   
     default:
       localStorage.setItem("status", 'initial');
       form.classList.remove("d-none");
       submitButton.classList.remove("d-none");
-      downloadBtn.parentElement.classList.add("d-none");
       break;
   }
 }
@@ -77,10 +88,17 @@ const enableFormSubmit = () => {
 
     // send the url to the backend
     const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
-    const response = await fetch(url);
-    const file_urls = await response.json();
+    try {
+      const response = await fetch(url);
+      if (!res.ok) {
+        throw new ResponseError('Bad fetch response', res);
+      }
+      const file_urls = await response.json();
+      updateDisplay('finished');
+    } catch(err) {
+      updateDisplay('error');  
+    }
 
-    updateDisplay('finished');
   })
 }
 
@@ -89,9 +107,11 @@ downloadBtn.addEventListener("click", () => {
   chrome.tabs.create({ url: newURL });
 })
 
-reset.addEventListener("click", () => {
-  updateDisplay('initial');
-})
+resets.forEach( reset => {
+  reset.addEventListener("click", () => {
+    updateDisplay('initial');
+  })
+});
 
 // check and keep track of status even when chrome extension closed
 updateTime(localStorage.getItem("inForty"));
