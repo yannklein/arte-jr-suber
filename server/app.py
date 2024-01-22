@@ -28,8 +28,8 @@ def process_video():
     duration['stream_to_video'] = time.time()
     
     # original_urls = [
-    #     "http://127.0.0.1:8000/videos/original.mp4",
-    #     "http://127.0.0.1:8000/videos/original.mp3"
+    #     "/videos/original.mp4",
+    #     "/videos/original.mp3"
     # ]
     # stream_url = "https://manifest.arte.tv/api/manifest/v1/Generate/240117202245/fr/XQ/117014-013-A.m3u8"
     
@@ -40,7 +40,7 @@ def process_video():
     
     # Step3: translate transcript
     lang = request.args.get("lang")
-    translations = text_translation(f'http://127.0.0.1:8000/{transcript}', lang)
+    translations = text_translation(transcript, lang)
     duration['text_translation'] = time.time()
     # translations = ["videos/translation.json", "videos/translation.srt"]
     
