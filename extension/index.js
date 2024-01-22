@@ -36,7 +36,7 @@ const updateTime = (inForty) => {
   let diff = Math.floor((new Date(inForty) - new Date())/60000);
   if (diff < 0 ) {
     diff = 0;
-    updateDisplay("finish"); // TODO: tackle the false positive problem
+    updateDisplay("finished"); // TODO: tackle the false positive problem
   }
   timeSpan.innerHTML = diff;
 }
@@ -104,7 +104,7 @@ const enableFormSubmit = () => {
 }
 
 downloadBtn.addEventListener("click", () => {
-  const newURL = `${BACKEND_URL}/videos/translated.mp4}`;
+  const newURL = `${BACKEND_URL}/videos/translated.mp4`;
   chrome.tabs.create({ url: newURL });
 })
 
