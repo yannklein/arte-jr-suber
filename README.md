@@ -81,8 +81,8 @@ The whole process take around 40min for a 20min video.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Demo
+https://github.com/yannklein/arte-jr-suber/assets/26819547/faba338b-176d-4d88-a335-7ef2e7e04896
 
-[Check the video demo on Youtube](https://www.youtube.com/watch?v=a1SlrAppNXA)
 
 
 <!-- GETTING STARTED -->
