@@ -1,5 +1,5 @@
 const isProdMode = 'update_url' in chrome.runtime.getManifest()
-const BACKEND_URL =  isProdMode ? 'TO BE DEFINED' : 'http://127.0.0.1:8000';
+const BACKEND_URL =  isProdMode ? 'TO BE DEFINED' : 'http://127.0.0.1:4000';
 
 const form = document.querySelector(".subbing-form");
 const formVideoContainer = document.querySelector(".form-videos");
