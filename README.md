@@ -128,9 +128,6 @@ Check and follow the steps of the video <a href="#demo">Demo</a>.
 - [ ] Store assets on cloud services
 - [ ] Improve processing speed
 
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -156,7 +153,7 @@ Don't forget to give the project a star! Thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -164,8 +161,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
-
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
 
 * Thanks to [Tomo](https://github.com/tomozilla) for inspiring and hinting way to build this project
 * [Img Shields](https://shields.io)
