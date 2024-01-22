@@ -2,7 +2,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
+  <a href="https://github.com/yannklein/arte-jr-suber">
     <img src="https://github.com/yannklein/arte-jr-suber/assets/26819547/f60e07fd-ed65-487f-b956-7353ebd3312f" alt="Logo" width="80" height="80">
   </a>
 
@@ -55,10 +55,11 @@
 
 The project consist of a Chrome extension that gets a website video stream and sends it to a Python backend which generates its subtitle in any other language and output the subtitled video. 
 I used it to add subtitles to my favorite TV news: <a href='https://www.arte.tv/fr/videos/RC-014085/arte-journal/'>Arte Journal</a>.
+<br><br>
 <kbd>  
   <img width="299" alt="image" src="https://github.com/yannklein/arte-jr-suber/assets/26819547/5a1cb198-b7e2-4759-a173-ea5d97fb838a">
 </kbd>
-
+<br><br>
 This project is a pipepline of different processes as follows:
 1. The Chrome Extension detects HTTP reponses containing .m3u8 stream payloads and send it to the project's backend
 2. The stream is turned into a video and audio file using the [ffmpeg-python](https://pypi.org/project/ffmpeg-python/) library
