@@ -82,7 +82,7 @@ The whole process take around 40min for a 20min video.
 
 ### Demo
 
-[![test](https://img.youtube.com/vi/a1SlrAppNXA/0.jpg)](https://www.youtube.com/watch?v=a1SlrAppNXA)
+[Check the video demo on Youtube](https://www.youtube.com/watch?v=a1SlrAppNXA)
 
 
 <!-- GETTING STARTED -->
