@@ -36,7 +36,7 @@ const updateTime = (inForty) => {
   let diff = Math.floor((new Date(inForty) - new Date())/60000);
   if (diff < 0 ) {
     diff = 0;
-    updateDisplay("finish");
+    updateDisplay("finish"); // TODO: tackle the false positive problem
   }
   timeSpan.innerHTML = diff;
 }
