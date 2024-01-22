@@ -7,3 +7,9 @@ services:
     build: .
     ports:
       - "4000:4000"
+    environment:
+      # https://cloud.google.com/docs/authentication/production
+      GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/keyfile.json
+    volumes:
+      # Inject your specific service account keyfile into the container at runtime.
+      - $HOME/.gcp/arte-jr-subber-0f20835848c6.json:/tmp/keys/keyfile.json:ro
