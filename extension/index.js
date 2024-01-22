@@ -31,6 +31,7 @@ const updateTime = (inForty) => {
   if (!inForty) {
     return
   }
+  setInterval(() => { updateTime(localStorage.getItem("inForty")) }, 60000);
   let diff = Math.floor((new Date(inForty) - new Date())/60000);
   if (diff < 0 ) {
     diff = 0;
@@ -70,7 +71,6 @@ const enableFormSubmit = () => {
 
     const inForty = new Date(new Date().getTime() + 40*60000);
     updateTime(inForty)
-    setInterval(() => { updateTime(inForty) }, 60000);
 
     const reqUrl = form.elements[0].name;
     const reqLang = form.elements[1].value;
