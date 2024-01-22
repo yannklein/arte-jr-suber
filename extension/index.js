@@ -26,39 +26,6 @@ async function logURL(requestDetails) {
   }
 }
 
-// listen to form submit to start subbing
-const enableFormSubmit = () => {
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    updateDisplay('inProgress');
-
-    const inForty = new Date(new Date().getTime() + 40*60000);
-    updateTime(inForty)
-    setInterval(() => { updateTime(inForty) }, 60000);
-
-    const reqUrl = form.elements[0].name;
-    const reqLang = form.elements[1].value;
-
-    // send the url to the backend
-    const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
-    const response = await fetch(url);
-    const file_urls = await response.json();
-
-    updateDisplay('finished');
-    
-    // const file_urls = {'final_video': "test"}
-    downloadBtn.addEventListener("click", () => {
-      const newURL = `${BACKEND_URL}/${file_urls['final_video']}`;
-      chrome.tabs.create({ url: newURL });
-    })
-    reset.addEventListener("click", () => {
-      updateDisplay('initial');
-    })
-
-  })
-}
-
 const updateTime = (inForty) => {
   localStorage.setItem("inForty", inForty)
   if (!inForty) {
@@ -93,6 +60,38 @@ const updateDisplay = (status) => {
       break;
   }
 }
+
+// listen to form submit to start subbing
+const enableFormSubmit = () => {
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    updateDisplay('inProgress');
+
+    const inForty = new Date(new Date().getTime() + 40*60000);
+    updateTime(inForty)
+    setInterval(() => { updateTime(inForty) }, 60000);
+
+    const reqUrl = form.elements[0].name;
+    const reqLang = form.elements[1].value;
+
+    // send the url to the backend
+    const url = `${BACKEND_URL}?url=${reqUrl}&lang=${reqLang}`;
+    const response = await fetch(url);
+    const file_urls = await response.json();
+
+    updateDisplay('finished');
+  })
+}
+
+downloadBtn.addEventListener("click", () => {
+  const newURL = `${BACKEND_URL}/videos/translated.mp4}`;
+  chrome.tabs.create({ url: newURL });
+})
+
+reset.addEventListener("click", () => {
+  updateDisplay('initial');
+})
 
 // check and keep track of status even when chrome extension closed
 updateTime(localStorage.getItem("inForty"));
