@@ -27,14 +27,19 @@
         </select>
         <div class="d-grid mb-3">
           <button type="submit" class="btn btn-danger subbing-button">Sub it!</button>
-          <button class="btn btn-danger d-none in-progress disabled">
-            <div class="d-flex flex-column align-items-center mt-2">
-              <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
+          <div class="in-progress d-none">
+            <button class="btn btn-danger disabled">
+              <div class="d-flex flex-column align-items-center mt-2">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Generating subtitles, <span class="subbing-time">some</span> min remaining...</p>
               </div>
-              <p>Generating subtitles, <span class="subbing-time">some</span> min remaining...</p>
+            </button>
+            <div class="d-grid">
+              <button class="reset btn btn-outline-danger btn-sm my-3">Back</button>
             </div>
-          </button>
+          </div>
         </div>
       </form>
       <div class="d-grid d-none">
