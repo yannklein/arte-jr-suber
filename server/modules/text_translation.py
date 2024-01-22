@@ -4,14 +4,14 @@ from google.cloud import translate_v2 as translate
 
 def text_translation(transcript_url, target_lang):
     
-    translation_json_file = "videos/translation.json"
-    translation_srt_file = "videos/translation.srt"
+    translation_json_file = "./videos/translation.json"
+    translation_srt_file = "./videos/translation.srt" 
     
     # Opening JSON file
     json_object = {}
-    with urllib.request.urlopen(transcript_url) as url:
+    with open(transcript_url) as file:
         # Reading from json file
-        json_object = json.load(url)
+        json_object = json.load(file)
         
     text = generate_segmented_text(json_object)
     print(text)

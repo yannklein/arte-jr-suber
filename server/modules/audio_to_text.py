@@ -4,7 +4,7 @@ import whisper
 def audio_to_text(input_audio):
 
     # Specify the directories
-    transcript_file = "videos/transcript.json"
+    transcript_file = "./videos/transcript.json"
 
     print(transcript_file, input_audio)
     # Load the whisper model
