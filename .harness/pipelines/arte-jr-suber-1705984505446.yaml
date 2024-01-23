@@ -1,0 +1,33 @@
+pipeline:
+  identifier: Build_yannklein_arte_jr_suber_1705984511651
+  name: Build arte-jr-suber
+  orgIdentifier: default
+  projectIdentifier: artejesubber
+  properties:
+    ci:
+      codebase:
+        build: <+input>
+        connectorRef: account.Github
+        repoName: yannklein/arte-jr-suber
+  stages:
+    - stage:
+        identifier: build
+        name: build
+        spec:
+          cloneCodebase: true
+          execution:
+            steps:
+              - step:
+                  identifier: echo
+                  name: echo
+                  spec:
+                    command: echo hello world
+                  timeout: ""
+                  type: Run
+          platform:
+            arch: Amd64
+            os: Linux
+          runtime:
+            spec: {}
+            type: Cloud
+        type: CI
