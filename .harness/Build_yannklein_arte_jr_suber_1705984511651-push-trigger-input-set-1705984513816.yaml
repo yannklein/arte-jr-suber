@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_yannklein_arte_jr_suber_1705984511651-push-trigger-input-set
+  identifier: Build_yannklein_arte_jr_suber_1705984511651pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: artejesubber
+  pipeline:
+    identifier: Build_yannklein_arte_jr_suber_1705984511651
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
