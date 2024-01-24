@@ -215,3 +215,5 @@ Distributed under the MIT License.
 [googletranslate-url]: https://cloud.google.com/translate
 [openai]: https://img.shields.io/badge/WhisperAI-4285F4?style=for-the-badge&logo=openai&logoColor=white
 [openai-url]: https://openai.com/research/whisper
+[rubyonrails]: https://img.shields.io/badge/rubyonrails-D30001?style=for-the-badge&logo=rubyonrails&logoColor=black
+[rubyonrails-url]: https://rubyonrails.org/
