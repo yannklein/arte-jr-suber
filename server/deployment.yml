@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arte-jr-subber-deployment
+  labels:
+    app: arte-jr-subber
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: arte-jr-subber
+  template:
+    metadata:
+      labels:
+        app: arte-jr-subber
+    spec:
+      containers:
+      - name: arte-jr-subber-deployment
+        image: yannklein/arte-jr-subber
+        resources:
+          requests:
+            cpu: "100m"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4000
