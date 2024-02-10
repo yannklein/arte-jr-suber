@@ -5,7 +5,7 @@ from flask import Flask, request, send_from_directory
 
 from modules.stream_to_video import stream_to_video
 from modules.audio_to_text import audio_to_text
-from modules.text_translation import text_translation
+from server.modules.text_translation_gtranslate import text_translation
 from modules.generate_subtitle import generate_subtitle
 
 
