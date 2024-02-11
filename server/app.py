@@ -5,8 +5,9 @@ from flask import Flask, request, send_from_directory
 
 from modules.stream_to_video import stream_to_video
 from modules.audio_to_text import audio_to_text
-from server.modules.text_translation_gtranslate import text_translation
+# from server.modules.text_translation_gtranslate import text_translation
 from modules.generate_subtitle import generate_subtitle
+from modules.text_translation_openai import text_translation
 
 
 # load_dotenv()
@@ -27,6 +28,7 @@ def process_video():
     original_urls = stream_to_video(stream_url)
     duration['stream_to_video'] = time.time()
     
+    # Test data
     # original_urls = [
     #     "/videos/original.mp4",
     #     "/videos/original.mp3"
@@ -36,12 +38,16 @@ def process_video():
     # Step2: get video transcript
     transcript = audio_to_text(original_urls[1])
     duration['audio_to_text'] = time.time()
+    
+    # Test data
     # transcript = "videos/transcript.json"
     
     # Step3: translate transcript
     lang = request.args.get("lang")
     translations = text_translation(transcript, lang)
     duration['text_translation'] = time.time()
+    
+    # Test data
     # translations = ["videos/translation.json", "videos/translation.srt"]
     
     # Step4: generate video subtitles

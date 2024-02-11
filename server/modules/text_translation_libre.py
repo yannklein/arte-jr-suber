@@ -41,7 +41,6 @@ def generate_segmented_text(json_file):
     return segmented_text
 
 def segmented_text_to_srt(translation_file, segmented_text):
-    translation = []
     with open(translation_file, 'w') as f:
         for index, seg in enumerate(segmented_text.split('[[')):
             if seg == '':

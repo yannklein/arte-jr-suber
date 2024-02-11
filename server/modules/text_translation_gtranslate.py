@@ -56,7 +56,6 @@ def segmented_text_to_json(translation_file, segmented_text):
         f.write(json_object)
         
 def segmented_text_to_srt(translation_file, segmented_text):
-    translation = []
     with open(translation_file, 'w') as f:
         for index, seg in enumerate(segmented_text.split('<span translate="no">')):
             if seg == '':
