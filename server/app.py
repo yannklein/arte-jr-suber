@@ -79,7 +79,10 @@ async def sub_via_scraping(lang):
     process_video(url, lang)
 
 if __name__ == '__main__':
-    print("Hi")
+    # args mode
+    if (len(sys.argv) > 1):
+        trio.run(sub_via_scraping, sys.argv[1])
+        sys.exit(0)
     while True:
         user_choice = input("Welcome to the Arte Journal video subber! What do you want to do?\n1 - Sub video via Chrome extension\n2 - Sub video via Scraping\n>")
         if(user_choice == "1"):
