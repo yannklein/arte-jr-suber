@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def text_translation(transcript_url, target_lang):
-    
+    print("start translation")
     langs = {
         'fr': 'french',
         'en': 'english',
@@ -31,20 +31,20 @@ def text_translation(transcript_url, target_lang):
     client = OpenAI()
     
     # cut the transcript in two pieces to fit openai prompt limit
-    seg1 = dict(list(segmented_dict.items())[int(len(segmented_dict)/2):])
-    seg2 = dict(list(segmented_dict.items())[:int(len(segmented_dict)/2)])
-
-    # translate each half
-    trans_seg1 = json.loads(openai_translate(client, langs[target_lang], seg1))
-    trans_seg2 = json.loads(openai_translate(client, langs[target_lang], seg2))
-
-    # reconnect them
-    full_trans_seg = dict(trans_seg1)
-    full_trans_seg.update(dict(trans_seg2))
+    segments = {}
+    char_count = 0 
+    start_index = 0
+    for index, (timestamp, text) in enumerate(segmented_dict.items()):
+        char_count += len(f"\{{ '{timestamp}': '{text}', ")
+        if (char_count >= 10000 or index >= len(segmented_dict) - 1):
+            segment = dict(list(segmented_dict.items())[start_index:index])
+            translated_segment = json.loads(openai_translate(client, langs[target_lang], segment))
+            segments.update(translated_segment)
+            start_index = index + 1
+            char_count = 0
     
     # Write the transcription to the output SRT file
-    print(full_trans_seg)
-    segmented_dict_to_srt(translation_srt_file, full_trans_seg)
+    segmented_dict_to_srt(translation_srt_file, segments)
     
     return [translation_json_file, translation_srt_file]    
 
@@ -74,22 +74,22 @@ def openai_translate(client, lang, seg):
     response = client.chat.completions.create(
     model="gpt-3.5-turbo-0125",
     response_format={ "type": "json_object" },
-    messages=[
+    messages = [
         {"role": "system", "content": "You are a meticulous video transcript translator for a TV news."},
-        {
-            "role": "user", 
-            "content": 
-                f"""
-                The following data is a JSON file containing the segmented transcript of a TV news video.
-                Each transcript segment is represented by a key/value pair of the JSON file.
-                Each key represents the time frame of the segment and should be ignored.
-                Each value represent the transcript for this segment.
-                Translate each value of each segment in {lang}. 
-                The segment translation should match the context of the whole transcript.
-                Your output should be a copy of the original JSON file with each value replaced by their corresponding translation.
-                Your output should only contain the JSON file.
-                Here is the data: {seg}
-                """}
+        {"role": "user", 
+        "content": 
+            f"""
+            The following data is a JSON file containing the segmented transcript of a TV news video.
+            Each transcript segment is represented by a key/value pair of the JSON file.
+            Each key represents the time frame of the segment and should be ignored.
+            Each value represent the transcript for this segment.
+            Translate each value of each segment in {lang}. 
+            The segment translation should match the context of the whole transcript.
+            Your output should be a copy of the original JSON file with each value replaced by their corresponding translation.
+            Your output should only contain the JSON file. You should make sure the JSON file structure is valid and you should correct it if it's not.
+            Here is the data: {seg}
+            """
+        }
     ]
     )
     return response.choices[0].message.content
