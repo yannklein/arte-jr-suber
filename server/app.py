@@ -1,5 +1,6 @@
-import os, json, time
+import os, json, time, sys
 
+import trio
 from flask import Flask, request, send_from_directory
 # from dotenv import load_dotenv
 
@@ -8,7 +9,7 @@ from modules.audio_to_text import audio_to_text
 # from server.modules.text_translation_gtranslate import text_translation
 from modules.generate_subtitle import generate_subtitle
 from modules.text_translation_openai import text_translation
-
+from modules.scrape_video_url import scrape_video_url
 
 # load_dotenv()
 # print(os.environ.get('PROJECTID'))
@@ -17,14 +18,15 @@ app = Flask(__name__)
 
 # main route to perform video full process
 @app.route('/')
-def process_video():
+def process_video(stream_url = None, lang = None):
     duration = {'start': time.time()}
     
     # Step0: cleanup the videos folder
     os.system('rm -rf ./videos/*')
 
     # Step1: get video from stream url
-    stream_url = request.args.get("url")
+    if (stream_url is None):
+        stream_url = request.args.get("url")
     original_urls = stream_to_video(stream_url)
     duration['stream_to_video'] = time.time()
     
@@ -43,7 +45,8 @@ def process_video():
     # transcript = "videos/transcript.json"
     
     # Step3: translate transcript
-    lang = request.args.get("lang")
+    if(lang is None):
+        lang = request.args.get("lang")
     translations = text_translation(transcript, lang)
     duration['text_translation'] = time.time()
     
@@ -69,6 +72,21 @@ def process_video():
 def send_report(path):
     return send_from_directory('videos', path)
 
-if __name__ == '__main__':
+async def sub_via_scraping(lang):
+    print("sub_via_scraping")
+    url = await scrape_video_url()
+    print(url, lang)
+    process_video(url, lang)
 
-    app.run()
+if __name__ == '__main__':
+    print("Hi")
+    while True:
+        user_choice = input("Welcome to the Arte Journal video subber! What do you want to do?\n1 - Sub video via Chrome extension\n2 - Sub video via Scraping\n>")
+        if(user_choice == "1"):
+            app.run()
+        elif(user_choice == "2"):
+            lang = input("What lang should we translate to? en|pt|fr\n>")
+            trio.run(sub_via_scraping, lang)
+        else:
+            print("Byeee!")
+            sys.exit(0)

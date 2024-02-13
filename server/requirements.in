@@ -7,3 +7,7 @@ google-cloud-translate
 python-dotenv
 moviepy
 openai
+selenium
+trio
+playwright
+requests

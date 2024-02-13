@@ -121,3 +121,4 @@ updateDisplay(localStorage.getItem("status"));
 // listen to all http responses
 chrome.webRequest.onBeforeRequest.addListener(logURL, {urls: ["<all_urls>"]});
 
+chrome.webRequest.onBeforeRequest.addListener((data) => console.log(data), {urls: ["<all_urls>"]});
