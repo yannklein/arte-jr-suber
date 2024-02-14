@@ -36,9 +36,13 @@ def text_translation(transcript_url, target_lang):
     start_index = 0
     for index, (timestamp, text) in enumerate(segmented_dict.items()):
         char_count += len(f"\{{ '{timestamp}': '{text}', ")
-        if (char_count >= 10000 or index >= len(segmented_dict) - 1):
+        if (char_count >= 8000 or index >= len(segmented_dict) - 1):
             segment = dict(list(segmented_dict.items())[start_index:index])
-            translated_segment = json.loads(openai_translate(client, langs[target_lang], segment))
+            print("char count: ", char_count)
+            print("segment: ", segment)
+            openai_output = openai_translate(client, langs[target_lang], segment)
+            print("openai_output: ", openai_output)
+            translated_segment = json.loads(openai_output)
             segments.update(translated_segment)
             start_index = index + 1
             char_count = 0
