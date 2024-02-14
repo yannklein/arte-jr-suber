@@ -32,8 +32,8 @@ def process_video(stream_url = None, lang = None):
     
     # Test data
     # original_urls = [
-    #     "/videos/original.mp4",
-    #     "/videos/original.mp3"
+    #     "./videos/original.mp4",
+    #     "./videos/original.mp3"
     # ]
     # stream_url = "https://manifest.arte.tv/api/manifest/v1/Generate/240117202245/fr/XQ/117014-013-A.m3u8"
     
@@ -42,7 +42,7 @@ def process_video(stream_url = None, lang = None):
     duration['audio_to_text'] = time.time()
     
     # Test data
-    # transcript = "videos/transcript.json"
+    # transcript = "./videos/transcript.json"
     
     # Step3: translate transcript
     if(lang is None):
