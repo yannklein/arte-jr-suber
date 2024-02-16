@@ -1,9 +1,9 @@
 import json, urllib.request, datetime
 from google.cloud import translate_v2 as translate
- 
+from modules.time_util import ftime
 
 def text_translation(transcript_url, target_lang):
-    
+    print(f"{ftime()}: Starting text translation...")
     translation_json_file = "./videos/translation.json"
     translation_srt_file = "./videos/translation.srt" 
     
@@ -14,7 +14,6 @@ def text_translation(transcript_url, target_lang):
         json_object = json.load(file)
         
     text = generate_segmented_text(json_object)
-    print(text)
     translate_client = translate.Client()
     # Detect the source language
     translate_client.detect_language(text)
@@ -28,6 +27,7 @@ def text_translation(transcript_url, target_lang):
     
     # Write the transcription to the output SRT file
     segmented_text_to_srt(translation_srt_file, translation_text['translatedText'])
+    print(f"{ftime()}: Text translation done!")
     
     return [translation_json_file, translation_srt_file]
 
@@ -41,7 +41,6 @@ def generate_segmented_text(json_file):
 def segmented_text_to_json(translation_file, segmented_text):
     translation = []
     for seg in segmented_text.split('<span translate="no">'):
-        print(seg)
         if seg == '':
             continue
         time, text = seg.split('</span>')

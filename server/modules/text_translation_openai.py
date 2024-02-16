@@ -1,17 +1,19 @@
 import datetime
-import requests
 import json
 import os
 from openai import OpenAI
+from modules.time_util import ftime
+
 
 from dotenv import load_dotenv
 load_dotenv()
 
 def text_translation(transcript_url, target_lang):
-    print("start translation")
+    print(f"{ftime()}: Starting text translation...")
     langs = {
         'fr': 'french',
         'en': 'english',
+        'ja': 'japanese',
         'pt': 'portugues'
     }
     
@@ -26,7 +28,6 @@ def text_translation(transcript_url, target_lang):
         json_object = json.load(file)
         
     segmented_dict = generate_segmented_dict(json_object)
-    # print(segmented_dict)
     
     client = OpenAI()
     
@@ -38,10 +39,10 @@ def text_translation(transcript_url, target_lang):
         char_count += len(f"\{{ '{timestamp}': '{text}', ")
         if (char_count >= 7000 or index >= len(segmented_dict) - 1):
             segment = dict(list(segmented_dict.items())[start_index:index])
-            print("char count: ", char_count)
-            print("segment: ", segment)
+            # print("char count: ", char_count)
+            # print("segment: ", segment)
             openai_output = openai_translate(client, langs[target_lang], segment)
-            print("openai_output: ", openai_output)
+            # print("openai_output: ", openai_output)
             translated_segment = json.loads(openai_output)
             segments.update(translated_segment)
             start_index = index + 1
@@ -49,7 +50,7 @@ def text_translation(transcript_url, target_lang):
     
     # Write the transcription to the output SRT file
     segmented_dict_to_srt(translation_srt_file, segments)
-    
+    print(f"{ftime()}: Text translation done!")
     return [translation_json_file, translation_srt_file]    
 
 def generate_segmented_dict(json_file):

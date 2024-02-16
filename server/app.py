@@ -10,6 +10,7 @@ from modules.audio_to_text import audio_to_text
 from modules.generate_subtitle import generate_subtitle
 from modules.text_translation_openai import text_translation
 from modules.scrape_video_url import scrape_video_url
+from modules.time_util import ftime
 
 # load_dotenv()
 # print(os.environ.get('PROJECTID'))
@@ -19,7 +20,7 @@ app = Flask(__name__)
 # main route to perform video full process
 @app.route('/')
 def process_video(stream_url = None, lang = None):
-    duration = {'start': time.time()}
+    duration = {'start': ftime()}
     
     # Step0: cleanup the videos folder
     os.system('rm -rf ./videos/*')
@@ -28,7 +29,7 @@ def process_video(stream_url = None, lang = None):
     if (stream_url is None):
         stream_url = request.args.get("url")
     original_urls = stream_to_video(stream_url)
-    duration['stream_to_video'] = time.time()
+    duration['stream_to_video'] = ftime()
     
     # Test data
     # original_urls = [
@@ -39,7 +40,7 @@ def process_video(stream_url = None, lang = None):
     
     # Step2: get video transcript
     transcript = audio_to_text(original_urls[1])
-    duration['audio_to_text'] = time.time()
+    duration['audio_to_text'] = ftime()
     
     # Test data
     # transcript = "./videos/transcript.json"
@@ -48,15 +49,14 @@ def process_video(stream_url = None, lang = None):
     if(lang is None):
         lang = request.args.get("lang")
     translations = text_translation(transcript, lang)
-    duration['text_translation'] = time.time()
+    duration['text_translation'] = ftime()
     
     # Test data
     # translations = ["videos/translation.json", "videos/translation.srt"]
     
     # Step4: generate video subtitles
     final_video = generate_subtitle(translations[1], original_urls[0])
-    duration['generate_subtitle'] = time.time()
-    print(duration)
+    duration['generate_subtitle'] = ftime()
     output = {
         'original_vid_url': original_urls,
         'stream_url': stream_url,
@@ -73,17 +73,19 @@ def send_report(path):
     return send_from_directory('videos', path)
 
 async def sub_via_scraping(lang):
-    print("sub_via_scraping")
+    print(f"{ftime()}: Start Arte Journal scraping...")
     url = await scrape_video_url()
-    print(url, lang)
-    process_video(url, lang)
+    print(f"{ftime()}: Scraping done! URL and lang: ", url, lang)
+    process_video(stream_url=url, lang=lang)
 
 if __name__ == '__main__':
     # args mode
-    if (len(sys.argv) > 1):
+    if (len(sys.argv) == 2):
         trio.run(sub_via_scraping, sys.argv[1])
         sys.exit(0)
-    while True:
+    elif (len(sys.argv) == 3):
+        process_video(lang=sys.argv[2], stream_url=sys.argv[1])
+    else:
         user_choice = input("Welcome to the Arte Journal video subber! What do you want to do?\n1 - Sub video via Chrome extension\n2 - Sub video via Scraping\n>")
         if(user_choice == "1"):
             app.run()
