@@ -37,7 +37,7 @@ def text_translation(transcript_url, target_lang):
     start_index = 0
     for index, (timestamp, text) in enumerate(segmented_dict.items()):
         char_count += len(f"\{{ '{timestamp}': '{text}', ")
-        if (char_count >= 7000 or index >= len(segmented_dict) - 1):
+        if (char_count >= 6000 or index >= len(segmented_dict) - 1):
             segment = dict(list(segmented_dict.items())[start_index:index])
             # print("char count: ", char_count)
             # print("segment: ", segment)
