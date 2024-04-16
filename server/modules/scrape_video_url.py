@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 
 
 async def scrape_video_url():
+    
     url = 'https://www.arte.tv/fr/videos/RC-014085/arte-journal/'
     with sync_playwright() as p:
         # open video index

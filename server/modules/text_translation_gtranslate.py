@@ -1,14 +1,16 @@
-import json, urllib.request, datetime
+import json, urllib.request, datetime, os
 from google.cloud import translate_v2 as translate
 from modules.time_util import ftime
 
-def text_translation(transcript_url, target_lang):
+def text_translation(target_lang):
     print(f"{ftime()}: Starting text translation...")
-    translation_json_file = "./videos/translation.json"
-    translation_srt_file = "./videos/translation.srt" 
+    base_folder = os.environ.get('VIDEOS_FOLDER')
+    translation_json_file = f"{base_folder}translation.json"
+    translation_srt_file = f"{base_folder}translation.srt" 
     
     # Opening JSON file
     json_object = {}
+    transcript_url = f"{base_folder}/transcript.json"
     with open(transcript_url) as file:
         # Reading from json file
         json_object = json.load(file)
@@ -29,7 +31,7 @@ def text_translation(transcript_url, target_lang):
     segmented_text_to_srt(translation_srt_file, translation_text['translatedText'])
     print(f"{ftime()}: Text translation done!")
     
-    return [translation_json_file, translation_srt_file]
+    pass
 
 
 def generate_segmented_text(json_file):

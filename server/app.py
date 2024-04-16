@@ -2,7 +2,8 @@ import os, json, time, sys
 
 import trio
 from flask import Flask, request, send_from_directory
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
+load_dotenv()
 
 from modules.stream_to_video import stream_to_video
 from modules.audio_to_text import audio_to_text
@@ -12,8 +13,7 @@ from modules.text_translation_openai import text_translation
 from modules.scrape_video_url import scrape_video_url
 from modules.time_util import ftime
 
-# load_dotenv()
-# print(os.environ.get('PROJECTID'))
+# print(os.environ.get('VIDEOS_FOLDER'))
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def process_video(stream_url = None, lang = None):
     # Step1: get video from stream url
     if (stream_url is None):
         stream_url = request.args.get("url")
-    original_urls = stream_to_video(stream_url)
+    stream_to_video(stream_url)
     duration['stream_to_video'] = ftime()
     
     # Test data
@@ -39,7 +39,7 @@ def process_video(stream_url = None, lang = None):
     # stream_url = "https://manifest.arte.tv/api/manifest/v1/Generate/240117202245/fr/XQ/117014-013-A.m3u8"
     
     # Step2: get video transcript
-    transcript = audio_to_text(original_urls[1])
+    audio_to_text()
     duration['audio_to_text'] = ftime()
     
     # Test data
@@ -48,21 +48,22 @@ def process_video(stream_url = None, lang = None):
     # Step3: translate transcript
     if(lang is None):
         lang = request.args.get("lang")
-    translations = text_translation(transcript, lang)
+    text_translation(lang)
     duration['text_translation'] = ftime()
     
     # Test data
     # translations = ["videos/translation.json", "videos/translation.srt"]
     
     # Step4: generate video subtitles
-    final_video = generate_subtitle(translations[1], original_urls[0])
+    generate_subtitle()
     duration['generate_subtitle'] = ftime()
+    base_folder = os.environ.get('VIDEOS_FOLDER')
     output = {
-        'original_vid_url': original_urls,
+        'original_vid_url': f"{base_folder}/original.mp4",
         'stream_url': stream_url,
-        'transcript': transcript,
-        'translation': translations,
-        'final_video': final_video,
+        'transcript': f"{base_folder}/transcript.json",
+        'translation': f"{base_folder}/translation.srt",
+        'final_video': f"{base_folder}/translated.mp4",
         'duration': duration
     }
     return json.dumps(output)

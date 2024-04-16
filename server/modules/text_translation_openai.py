@@ -5,10 +5,7 @@ from openai import OpenAI
 from modules.time_util import ftime
 
 
-from dotenv import load_dotenv
-load_dotenv()
-
-def text_translation(transcript_url, target_lang):
+def text_translation(target_lang):
     print(f"{ftime()}: Starting text translation...")
     langs = {
         'fr': 'french',
@@ -18,8 +15,9 @@ def text_translation(transcript_url, target_lang):
     }
     
     url = os.getenv('LIBRETRANSLATE_DEV_URL')
-    translation_json_file = "./videos/translation.json"
-    translation_srt_file = "./videos/translation.srt" 
+    base_folder = os.environ.get('VIDEOS_FOLDER')
+    translation_srt_file = f"{base_folder}/translation.srt" 
+    transcript_url = f"{base_folder}/transcript.json"
     
     # Opening JSON file
     json_object = {}
@@ -51,7 +49,7 @@ def text_translation(transcript_url, target_lang):
     # Write the transcription to the output SRT file
     segmented_dict_to_srt(translation_srt_file, segments)
     print(f"{ftime()}: Text translation done!")
-    return [translation_json_file, translation_srt_file]    
+    pass
 
 def generate_segmented_dict(json_file):
     segmented_dict = {}
