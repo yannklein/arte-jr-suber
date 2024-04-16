@@ -10,6 +10,6 @@ def generate_subtitle():
     video_url = f'{base_folder}/original.mp4'
     
     in_video = ffmpeg.input(video_url)
-    ffmpeg.filter(in_video, "subtitles", translation_url).output(in_video.audio, translated_url).run()
-    print(f"{ftime()}: Subtitle creation done!")
+    ffmpeg.filter(in_video, "subtitles", translation_url).output(in_video.audio, translated_url, loglevel="quiet").run()
+    print(f"{ftime()}: Subtitle creation done! Check it out: {translated_url}")
     pass

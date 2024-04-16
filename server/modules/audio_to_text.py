@@ -22,5 +22,5 @@ def audio_to_text():
     with open(transcript_file, 'w') as f:
         f.write(json_object)
     
-    print(f"{ftime()}: Transcript creation done!")
+    print(f"{ftime()}: Transcript creation done! Check it out: {transcript_file}")
     pass

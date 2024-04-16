@@ -48,7 +48,7 @@ def text_translation(target_lang):
     
     # Write the transcription to the output SRT file
     segmented_dict_to_srt(translation_srt_file, segments)
-    print(f"{ftime()}: Text translation done!")
+    print(f"{ftime()}: Text translation done! Check it out: {translation_srt_file}")
     pass
 
 def generate_segmented_dict(json_file):

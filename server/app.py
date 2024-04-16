@@ -32,27 +32,17 @@ def process_video(stream_url = None, lang = None):
     duration['stream_to_video'] = ftime()
     
     # Test data
-    # original_urls = [
-    #     "./videos/original.mp4",
-    #     "./videos/original.mp3"
-    # ]
     # stream_url = "https://manifest.arte.tv/api/manifest/v1/Generate/240117202245/fr/XQ/117014-013-A.m3u8"
     
     # Step2: get video transcript
     audio_to_text()
     duration['audio_to_text'] = ftime()
     
-    # Test data
-    # transcript = "./videos/transcript.json"
-    
     # Step3: translate transcript
     if(lang is None):
         lang = request.args.get("lang")
     text_translation(lang)
     duration['text_translation'] = ftime()
-    
-    # Test data
-    # translations = ["videos/translation.json", "videos/translation.srt"]
     
     # Step4: generate video subtitles
     generate_subtitle()
