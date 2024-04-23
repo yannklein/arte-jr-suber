@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+FROM python:3.10.7
 
 WORKDIR /
 
@@ -9,6 +9,9 @@ RUN apt-get -y upgrade
 RUN apt-get install -y ffmpeg
 
 RUN pip install --no-cache-dir -r requirements.txt
+
+RUN playwright install 
+RUN playwright install-deps   
 
 COPY . .
 
