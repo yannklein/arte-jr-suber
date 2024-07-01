@@ -6,7 +6,7 @@ services:
     image: dockerhub-flask_live_app:1.0.0
     build: .
     ports:
-      - "4000:4000"
+      - "8080:8080"
     environment:
       # https://cloud.google.com/docs/authentication/production
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/keyfile.json

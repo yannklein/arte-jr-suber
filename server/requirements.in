@@ -11,3 +11,4 @@ selenium
 trio
 playwright
 requests
+gunicorn
