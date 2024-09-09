@@ -35,3 +35,4 @@ venv/
 
 server/videos*
 cron*
+server/docker-compose.yml

@@ -7,6 +7,7 @@ load_dotenv()
 
 from modules.stream_to_video import stream_to_video
 from modules.audio_to_text import audio_to_text
+# from modules.audio_to_text_api import audio_to_text
 # from server.modules.text_translation_gtranslate import text_translation
 from modules.generate_subtitle import generate_subtitle
 from modules.text_translation_openai import text_translation

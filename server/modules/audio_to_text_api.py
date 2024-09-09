@@ -2,6 +2,7 @@ import os, json
 import whisper
 
 from modules.time_util import ftime
+from openai import OpenAI
 
 
 def audio_to_text():
@@ -9,17 +10,23 @@ def audio_to_text():
     # Specify the directories
     transcript_file = f"{os.environ.get('VIDEOS_FOLDER')}/transcript.json"
 
-    # Load the whisper model
-    print(f"{ftime()}: Starting getting model...")
-    model = whisper.load_model("medium")
-    print(f"{ftime()}: Got model...")
+    # Load the whisper client
+    client = OpenAI()
     
     # Transcribe the audio file
     input_audio = f"{os.environ.get('VIDEOS_FOLDER')}/original.mp3"
+    
     try:
-        result = model.transcribe(input_audio, verbose=False)
-    except:
-        print(f"{ftime()}: Cant do transcription...")
+        audio_file= open(input_audio, "rb")
+        transcription = client.audio.transcriptions.create(
+            model="whisper-1", 
+            file=audio_file,
+            response_format="verbose_json",
+            timestamp_granularities=["segment"]
+        )
+        result = dict(transcription)
+    except Exception as e:  
+        print(f"{ftime()}: Can't do transcription... {e}")
     print(f"{ftime()}: Got transcription...")
     
     json_object = json.dumps(result, indent=4)
