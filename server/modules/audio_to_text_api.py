@@ -5,7 +5,7 @@ from modules.time_util import ftime
 from openai import OpenAI
 
 
-def audio_to_text():
+def audio_to_text_via_api():
     print(f"{ftime()}: Starting transcript creation...")
     # Specify the directories
     transcript_file = f"{os.environ.get('VIDEOS_FOLDER')}/transcript.json"
