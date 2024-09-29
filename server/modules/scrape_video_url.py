@@ -1,4 +1,5 @@
 import requests
+import datetime
 from playwright.sync_api import sync_playwright
 
 
@@ -11,6 +12,8 @@ async def scrape_video_url():
         page = browser.new_page()
         page.goto(url)
         video_link = page.query_selector('a[data-testid="ts-tsItemLink"]').get_attribute("href")
+        if datetime.datetime.today().weekday() == 6:
+            video_link = page.query_selector_all('a[data-testid="ts-tsItemLink"]')[1].get_attribute("href")
         page.context.close() 
         browser.close()
         
